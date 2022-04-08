@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+   <style>
+       h1 {
+           text-align: center;
+       }
+
+       #mapContainer { height: 500px; }
+   </style>
+    <title>Leaflet Demo</title>
+</head>
+<body>
+
+    <h1>MAP</h1>
+    <p>
+        Latitude: <span id="lat"></span>°
+        <br />Longitude: <span id="lon"></span>°
+    </p>
+
+    <div id="mapContainer"></div>
+
+    <script>
+        const myMap = L.map('mapContainer').setView([0,0], 1);
+
+        const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+        L.tileLayer(tileUrl,
+                    { attribution }
+            ).addTo(myMap);
+
+        const marker = L.marker([0, 0]).addTo(myMap);
+
+        async function getCoordinates(){
+            const latitude = 51.5124178;
+            const longitude = -0.1298427;
+
+            marker.setLatLng([latitude, longitude]);
+            myMap.setView([latitude, longitude], 4);
+
+            document.getElementById('lat').textContent = latitude.toFixed(2);
+            document.getElementById('lon').textContent = longitude.toFixed(2);
+        }
+
+        getCoordinates();
+    </script>
+
+</body>
+</html>
